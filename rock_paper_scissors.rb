@@ -48,27 +48,67 @@ describe RPS do
   end
 
   describe '#play' do
-
-    describe 'victory' do
-
-      let(:verdict) { 'Win' }
+    describe 'win' do
 
       it 'plays rock' do
         user_move = 'rock'
         @rps.cpu.move = :scissors
-        assert_equal "Rock against #{@rps.cpu.move.capitalize}! You #{:verdict}!", @rps.play(user_move)
+        assert_equal "Rock against #{@rps.cpu.move.capitalize}! You Win!", @rps.play(user_move)
       end
 
       it 'plays paper' do
         user_move = 'paper'
         @rps.cpu.move = :rock
-        assert_equal "Paper against #{@rps.cpu.move.capitalize}! You #{:verdict}!", @rps.play(user_move)
+        assert_equal "Paper against #{@rps.cpu.move.capitalize}! You Win!", @rps.play(user_move)
       end
 
       it 'plays scissors' do
         user_move = 'scissors'
         @rps.cpu.move = :paper
-        assert_equal "Scissors against #{@rps.cpu.move.capitalize}! You #{:verdict}!", @rps.play(user_move)
+        assert_equal "Scissors against #{@rps.cpu.move.capitalize}! You Win!", @rps.play(user_move)
+      end
+    end
+
+    describe 'lose' do
+
+      describe 'CPU wins' do
+        it 'plays rock' do
+          user_move = 'rock'
+          @rps.cpu.move = :paper
+          assert_equal "Rock against #{@rps.cpu.move.capitalize}! You Lose!", @rps.play(user_move)
+        end
+
+        it 'plays paper' do
+          user_move = 'paper'
+          @rps.cpu.move = :scissors
+          assert_equal "Paper against #{@rps.cpu.move.capitalize}! You Lose!", @rps.play(user_move)
+        end
+
+        it 'plays scissors' do
+          user_move = 'scissors'
+          @rps.cpu.move = :rock
+          assert_equal "Scissors against #{@rps.cpu.move.capitalize}! You Lose!", @rps.play(user_move)
+        end
+      end
+
+      describe 'draw' do
+        it 'plays rock' do
+          user_move = 'rock'
+          @rps.cpu.move = :rock
+          assert_equal "Rock against #{@rps.cpu.move.capitalize}! You Lose!", @rps.play(user_move)
+        end
+
+        it 'plays paper' do
+          user_move = 'paper'
+          @rps.cpu.move = :paper
+          assert_equal "Paper against #{@rps.cpu.move.capitalize}! You Lose!", @rps.play(user_move)
+        end
+
+        it 'plays scissors' do
+          user_move = 'scissors'
+          @rps.cpu.move = :scissors
+          assert_equal "Scissors against #{@rps.cpu.move.capitalize}! You Lose!", @rps.play(user_move)
+        end
       end
     end
   end
