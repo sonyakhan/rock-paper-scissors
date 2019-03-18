@@ -2,11 +2,24 @@ require 'minitest/autorun'
 
 class RPS
   def play(move)
-    if move == 'rock'
+    @cpu = CPU.new
+    if move == 'rock' && @cpu.move == 'scissors'
       'Rock against Scissors! You Win!'
     end
   end
 
+end
+
+class CPU
+  attr_reader :move
+
+  def initialize
+    @move = 'scissors'
+  end
+
+  def play
+    @move
+  end
 end
 
 class TestRPS < Minitest::Test
