@@ -41,18 +41,22 @@ class CPU
   end
 end
 
-class TestRPS < Minitest::Test
-  def setup
+describe RPS do
+
+  before do
     @rps = RPS.new
   end
 
-  def test_that_rock_beats_scissors
-    @rps.cpu.move = :scissors
-    assert_equal "Rock against #{@rps.cpu.move.capitalize}! You Win!", @rps.play('rock')
-  end
+  describe '#play' do
 
-  def test_that_paper_beats_rock
-    @rps.cpu.move = :rock
-    assert_equal "Paper against #{@rps.cpu.move.capitalize}! You Win!", @rps.play('paper')
+    it 'plays rock' do
+      @rps.cpu.move = :scissors
+      assert_equal "Rock against #{@rps.cpu.move.capitalize}! You Win!", @rps.play('rock')
+    end
+
+    it 'plays paper' do
+      @rps.cpu.move = :rock
+      assert_equal "Paper against #{@rps.cpu.move.capitalize}! You Win!", @rps.play('paper')
+    end
   end
 end
