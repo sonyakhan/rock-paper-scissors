@@ -30,4 +30,8 @@ class TestRPS < Minitest::Test
   def test_that_rock_beats_scissors
     assert_equal 'Rock against Scissors! You Win!', @rps.play('rock')
   end
+
+  def test_that_paper_beats_rock
+    assert_equal 'Paper against Rock! You Win!', @rps.play('paper')
+  end
 end
