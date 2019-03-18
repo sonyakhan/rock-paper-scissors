@@ -49,14 +49,21 @@ describe RPS do
 
   describe '#play' do
 
-    it 'plays rock' do
-      @rps.cpu.move = :scissors
-      assert_equal "Rock against #{@rps.cpu.move.capitalize}! You Win!", @rps.play('rock')
-    end
+    describe 'victory' do
+      it 'plays rock' do
+        @rps.cpu.move = :scissors
+        assert_equal "Rock against #{@rps.cpu.move.capitalize}! You Win!", @rps.play('rock')
+      end
 
-    it 'plays paper' do
-      @rps.cpu.move = :rock
-      assert_equal "Paper against #{@rps.cpu.move.capitalize}! You Win!", @rps.play('paper')
+      it 'plays paper' do
+        @rps.cpu.move = :rock
+        assert_equal "Paper against #{@rps.cpu.move.capitalize}! You Win!", @rps.play('paper')
+      end
+
+      it 'plays scissors' do
+        @rps.cpu.move = :paper
+        assert_equal "Scissors against #{@rps.cpu.move.capitalize}! You Win!", @rps.play('scissors')
+      end
     end
   end
 end
