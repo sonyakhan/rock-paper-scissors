@@ -6,7 +6,6 @@ class TestRPS < Minitest::Test
   end
 
   def test_that_rock_beats_scissors
-    @rps.expect(:play, "Rock against Scissors! You Win!", ['rock'])
-    @rps.play('rock')
+    assert_equal 'Rock against Scissors! You Win!', @rps.play('rock')
   end
 end
