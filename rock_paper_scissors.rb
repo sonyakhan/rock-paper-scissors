@@ -61,6 +61,12 @@ describe RPS do
     @rps = RPS.new
   end
 
+  def win_round
+    user_move = 'rock'
+    @rps.cpu.move = :scissors
+    @rps.play(user_move)
+  end
+
   describe '#play' do
     describe 'win' do
 
@@ -84,7 +90,6 @@ describe RPS do
     end
 
     describe 'lose' do
-
       describe 'CPU wins' do
         it 'plays rock' do
           user_move = 'rock'
@@ -129,11 +134,6 @@ describe RPS do
 
   describe '#score' do
     describe 'win' do
-      def win_round
-        user_move = 'rock'
-        @rps.cpu.move = :scissors
-        @rps.play(user_move)
-      end
 
       it 'increments score by 1 upon winning' do
         win_round
@@ -144,6 +144,13 @@ describe RPS do
         4.times { win_round }
         assert_equal 0, @rps.score
       end
+    end
+  end
+
+  describe '#wins' do
+    it 'returns number of 3 consecutive wins' do
+      3.times { win_round }
+      assert_equal 1, @rps.wins
     end
   end
 end
