@@ -27,18 +27,30 @@ class RPS
   end
 
   def adjust_score(verdict)
-    if verdict == 'Win'
-      @score += 1
-      if @score >= 3
-        @wins += 1
+    if @score.zero?
+      if verdict == 'Win'
+        @score += 1
+      else
+        @score -= 1
+      end
+    elsif @score.positive?
+      if verdict == 'Win'
+        @score += 1
+        if @score >= 3
+          @wins += 1
+          @score = 0
+        end
+      else
         @score = 0
       end
-    end
-
-    if verdict == 'Lose'
-      @score -= 1
-      if @score <= -3
-        @losses += 1
+    else
+      if verdict == 'Lose'
+        @score -= 1
+        if @score <= -3
+          @losses += 1
+          @score = 0
+        end
+      else
         @score = 0
       end
     end
