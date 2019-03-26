@@ -3,14 +3,17 @@ require 'pry'
 
 class RPS
   attr_reader :cpu
+  attr_reader :score
 
   def initialize
     @cpu = CPU.new
+    @score = 0
   end
 
   def play(move)
     if answer_sheet[move.downcase.to_sym] == @cpu.move
       verdict = 'Win'
+      add_to_score
     else
       verdict = 'Lose'
     end
@@ -18,16 +21,23 @@ class RPS
     message
   end
 
+  def add_to_score
+    if @score >= 3
+      @score = 0
+    else
+      @score += 1
+    end
+
+  end
+
+  private
+
   def answer_sheet
     {
         rock: :scissors,
         paper: :rock,
         scissors: :paper
     }
-  end
-
-  def score
-    rand(0..3)
   end
 
 end
@@ -118,8 +128,22 @@ describe RPS do
   end
 
   describe '#score' do
-    it 'returns a number between 0 and 3' do
-      assert_includes 0..3, @rps.score
+    describe 'win' do
+      def win_round
+        user_move = 'rock'
+        @rps.cpu.move = :scissors
+        @rps.play(user_move)
+      end
+
+      it 'increments score by 1 upon winning' do
+        win_round
+        assert_equal 1, @rps.score
+      end
+
+      it 'resets score to 0 after 3 wins' do
+        4.times { win_round }
+        assert_equal 0, @rps.score
+      end
     end
   end
 end
