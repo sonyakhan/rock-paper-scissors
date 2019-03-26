@@ -5,17 +5,18 @@ class RPS
   attr_reader :cpu
   attr_reader :score
   attr_reader :wins
+  attr_reader :losses
 
   def initialize
     @cpu = CPU.new
     @score = 0
     @wins = 0
+    @losses = 0
   end
 
   def play(move)
     if answer_sheet[move.downcase.to_sym] == @cpu.move
       verdict = 'Win'
-      # add_to_score
       adjust_score(verdict)
     else
       verdict = 'Lose'
@@ -32,8 +33,14 @@ class RPS
         @wins += 1
         @score = 0
       end
-    else
-      @score = 0
+    end
+
+    if verdict == 'Lose'
+      @score -= 1
+      if @score <= -3
+        @losses += 1
+        @score = 0
+      end
     end
   end
 
