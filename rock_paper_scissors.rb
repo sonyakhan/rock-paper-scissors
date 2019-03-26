@@ -4,21 +4,37 @@ require 'pry'
 class RPS
   attr_reader :cpu
   attr_reader :score
+  attr_reader :wins
 
   def initialize
     @cpu = CPU.new
     @score = 0
+    @wins = 0
   end
 
   def play(move)
     if answer_sheet[move.downcase.to_sym] == @cpu.move
       verdict = 'Win'
-      add_to_score
+      # add_to_score
+      adjust_score(verdict)
     else
       verdict = 'Lose'
+      adjust_score(verdict)
     end
     message = "#{move.downcase.capitalize} against #{@cpu.move.capitalize}! You #{verdict}!"
     message
+  end
+
+  def adjust_score(verdict)
+    if verdict == 'Win'
+      @score += 1
+      if @score >= 3
+        @wins += 1
+        @score = 0
+      end
+    else
+      @score = 0
+    end
   end
 
   def add_to_score
@@ -142,7 +158,7 @@ describe RPS do
 
       it 'resets score to 0 after 3 wins' do
         4.times { win_round }
-        assert_equal 0, @rps.score
+        assert_equal 1, @rps.score
       end
     end
   end
