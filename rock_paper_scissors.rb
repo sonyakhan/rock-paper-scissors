@@ -37,15 +37,6 @@ class RPS
     end
   end
 
-  def add_to_score
-    if @score >= 3
-      @score = 0
-    else
-      @score += 1
-    end
-
-  end
-
   private
 
   def answer_sheet
