@@ -112,4 +112,10 @@ describe RPS do
       end
     end
   end
+
+  describe '#score' do
+    it 'returns a number between 0 and 3' do
+      assert_includes 0..3, @rps.score
+    end
+  end
 end
