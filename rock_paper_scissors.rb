@@ -26,6 +26,10 @@ class RPS
     }
   end
 
+  def score
+    rand(0..3)
+  end
+
 end
 
 class CPU
